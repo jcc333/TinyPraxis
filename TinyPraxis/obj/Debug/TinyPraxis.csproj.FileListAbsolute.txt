@@ -1,0 +1,13 @@
+\\psf\Home\Documents\Visual Studio 2012\Projects\ExclusionLogic\ExclusionLogic\obj\Debug\TinyPraxis.csprojResolveAssemblyReference.cache
+\\psf\Home\Documents\Visual Studio 2012\Projects\ExclusionLogic\ExclusionLogic\bin\Debug\TinyPraxis.dll
+\\psf\Home\Documents\Visual Studio 2012\Projects\ExclusionLogic\ExclusionLogic\bin\Debug\TinyPraxis.pdb
+\\psf\Home\Documents\Visual Studio 2012\Projects\ExclusionLogic\ExclusionLogic\obj\Debug\TinyPraxis.dll
+\\psf\Home\Documents\Visual Studio 2012\Projects\ExclusionLogic\ExclusionLogic\obj\Debug\TinyPraxis.pdb
+\\psf\Home\Documents\Visual Studio 2012\Projects\TinyPraxis\TinyPraxis\bin\Debug\TinyPraxis.dll
+\\psf\Home\Documents\Visual Studio 2012\Projects\TinyPraxis\TinyPraxis\bin\Debug\TinyPraxis.pdb
+\\psf\Home\Documents\Visual Studio 2012\Projects\TinyPraxis\TinyPraxis\obj\Debug\TinyPraxis.csprojResolveAssemblyReference.cache
+\\psf\Home\Documents\Visual Studio 2012\Projects\TinyPraxis\TinyPraxis\obj\Debug\TinyPraxis.dll
+\\psf\Home\Documents\Visual Studio 2012\Projects\TinyPraxis\TinyPraxis\obj\Debug\TinyPraxis.pdb
+\\psf\Home\Documents\Visual Studio 2012\Projects\TinyPraxis\TinyPraxis\bin\Debug\TinyPraxis.XML
+\\psf\Home\Documents\Visual Studio 2012\Projects\TinyPraxis\TinyPraxis\bin\Debug\TinyPraxis.dll.CodeAnalysisLog.xml
+\\psf\Home\Documents\Visual Studio 2012\Projects\TinyPraxis\TinyPraxis\bin\Debug\TinyPraxis.dll.lastcodeanalysissucceeded

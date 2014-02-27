@@ -1,0 +1,5 @@
+\\psf\Home\Documents\Visual Studio 2012\Projects\ExclusionLogic\ExclusionLogic\bin\Debug\ExclusionLogic.dll
+\\psf\Home\Documents\Visual Studio 2012\Projects\ExclusionLogic\ExclusionLogic\bin\Debug\ExclusionLogic.pdb
+\\psf\Home\Documents\Visual Studio 2012\Projects\ExclusionLogic\ExclusionLogic\obj\Debug\ExclusionLogic.csprojResolveAssemblyReference.cache
+\\psf\Home\Documents\Visual Studio 2012\Projects\ExclusionLogic\ExclusionLogic\obj\Debug\ExclusionLogic.dll
+\\psf\Home\Documents\Visual Studio 2012\Projects\ExclusionLogic\ExclusionLogic\obj\Debug\ExclusionLogic.pdb

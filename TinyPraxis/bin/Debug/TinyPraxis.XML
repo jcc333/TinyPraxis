@@ -1,0 +1,493 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TinyPraxis</name>
+    </assembly>
+    <members>
+        <member name="T:TinyPraxis.KB">
+            <summary>
+            The default knowledgebase
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.KB.#cctor">
+            <summary>
+            Initializes the KB.
+            </summary>
+        </member>
+        <member name="F:TinyPraxis.KB.root">
+            <summary>
+            The actual root node of the KB.
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.KB.Clear">
+            <summary>
+            Deletes all data from the KB.
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.KB.Assert(TinyPraxis.KnowledgeBaseEntry[])">
+            <summary>
+            Adds entries to the KB.
+            </summary>
+            <param name="assertions">Entries to add</param>
+        </member>
+        <member name="M:TinyPraxis.KB.Retract(TinyPraxis.PrimitiveQuery)">
+            <summary>
+            Removes the first KB entry matching query.
+            </summary>
+            <param name="query">Query to specify what entry to remove</param>
+        </member>
+        <member name="M:TinyPraxis.KB.RetractAll(TinyPraxis.PrimitiveQuery)">
+            <summary>
+            Removes all KB entries matchign query.
+            </summary>
+            <param name="query">Query specifying entries to remove</param>
+        </member>
+        <member name="P:TinyPraxis.KB.Store">
+            <summary>
+            Begins an operation for storing an entry in the KB.
+            Follow this with + and - expressions to specify the data to store.
+            </summary>
+        </member>
+        <member name="P:TinyPraxis.KB.Query">
+            <summary>
+            Starts a query of the KB.  Follow this with + and - expressions to add elements to the query.
+            </summary>
+        </member>
+        <member name="T:TinyPraxis.KBExclusionException">
+            <summary>
+            Thrown when attempting to write a non-exclusive value to an exclusive value or vice-versa.
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.KBExclusionException.#ctor(System.String)">
+            <summary>
+            Thrown when attempting to write a non-exclusive value to an exclusive value or vice-versa.
+            </summary>
+        </member>
+        <member name="T:TinyPraxis.KBQuery">
+            <summary>
+            Used to search KB for all solutions to some query
+            These are different from normal IEnumerable enumerators primarily so that
+            we can reuse the damn things rather than having to constantly allocate and GC
+            new ones.
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.KBQuery.Reset">
+            <summary>
+            Restarts the query from the first solution
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.KBQuery.TryNext">
+            <summary>
+            Finds the next solution, if any.
+            </summary>
+            <returns>True if another solution was found</returns>
+        </member>
+        <member name="M:TinyPraxis.KBQuery.DoAll(System.Action)">
+            <summary>
+            Runs thunk once for each solution to the query
+            </summary>
+            <param name="thunk">Parameterless procedure to run</param>
+        </member>
+        <member name="M:TinyPraxis.KBQuery.FindAll(TinyPraxis.Variable)">
+            <summary>
+            Returns values of variable from all solutions of query, retaining duplicates.
+            </summary>
+            <param name="v">Variable to find values of</param>
+        </member>
+        <member name="M:TinyPraxis.KBQuery.FindAllUnique(TinyPraxis.Variable)">
+            <summary>
+            Returns values of variable from all solutions of query, omitting duplicates.
+            </summary>
+            <param name="v">Variable to find values of</param>
+        </member>
+        <member name="M:TinyPraxis.KBQuery.Find(TinyPraxis.Variable)">
+            <summary>
+            Returns value of variable in first result of query
+            </summary>
+            <param name="v">Variable to find values of</param>
+        </member>
+        <member name="M:TinyPraxis.KBQuery.op_BitwiseAnd(TinyPraxis.KBQuery,TinyPraxis.KBQuery)">
+            <summary>
+            Creates a composite query from two queries that's satisfied when each of the component queries is satisfied.
+            </summary>
+            <param name="q1">First query</param>
+            <param name="q2">Second query</param>
+            <returns>New conjunctive query.</returns>
+        </member>
+        <member name="M:TinyPraxis.KBQuery.op_Implicit(TinyPraxis.KBQuery)~System.Boolean">
+            <summary>
+            Converts a query to a bool.  True if the query matches at least one entry in the KB.
+            </summary>
+            <param name="q">The query.</param>
+            <returns>True if the query matches something in the KB.</returns>
+        </member>
+        <member name="M:TinyPraxis.KBQuery.ToString">
+            <summary>
+            Unparses the query into key+key+key format
+            </summary>
+            <returns>Name in key+key+key format</returns>
+        </member>
+        <member name="P:TinyPraxis.KBQuery.Name">
+            <summary>
+            Unparses the query into key+key+key format
+            </summary>
+        </member>
+        <member name="T:TinyPraxis.PrimitiveQuery">
+            <summary>
+            A query that returns a particular KB node, as opposed to e.g. and AndQuery
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.PrimitiveQuery.op_Addition(TinyPraxis.PrimitiveQuery,TinyPraxis.Variable)">
+            <summary>
+            Extends a query with a search for a non-exclusive child
+            </summary>
+            <param name="e">Query for parent node</param>
+            <param name="v">Variable for child key</param>
+            <returns></returns>
+        </member>
+        <member name="M:TinyPraxis.PrimitiveQuery.op_Addition(TinyPraxis.PrimitiveQuery,System.Object)">
+            <summary>
+            Extends a query with a search for a non-exclusive child
+            </summary>
+            <param name="e">Query for parent node</param>
+            <param name="o">Key value for desired child</param>
+            <returns></returns>
+        </member>
+        <member name="M:TinyPraxis.PrimitiveQuery.op_Subtraction(TinyPraxis.PrimitiveQuery,TinyPraxis.Variable)">
+            <summary>
+            Extends a query with a search for an exclusive child
+            </summary>
+            <param name="e">Query for parent node</param>
+            <param name="v">Variable for child key</param>
+            <returns></returns>
+        </member>
+        <member name="M:TinyPraxis.PrimitiveQuery.op_Subtraction(TinyPraxis.PrimitiveQuery,System.Object)">
+            <summary>
+            Extends a query with a search for an exclusive child
+            </summary>
+            <param name="e">Query for parent node</param>
+            <param name="o">Key value for desired child</param>
+            <returns></returns>
+        </member>
+        <member name="P:TinyPraxis.PrimitiveQuery.Current">
+            <summary>
+            The KnowledgeBaseEntry that was found as part of this query.
+            </summary>
+        </member>
+        <member name="T:TinyPraxis.SingletonQuery">
+            <summary>
+            A query that always returns exactly one KnowledgeBaseEntry
+            </summary>
+        </member>
+        <member name="F:TinyPraxis.SingletonQuery.done">
+            <summary>
+            True if we've already returned our one solution.
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.SingletonQuery.#ctor(TinyPraxis.KnowledgeBaseEntry)">
+            <summary>
+            Creates a QueryEnumerator that always returns exactly one KnowledgeBaseEntry
+            </summary>
+            <param name="e">The KnowledgeBaseEntry to return</param>
+        </member>
+        <member name="M:TinyPraxis.SingletonQuery.Reset">
+            <summary>
+            Restarts the query
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.SingletonQuery.TryNext">
+            <summary>
+            Attempts to find the first/next solution
+            </summary>
+            <returns>True on success</returns>
+        </member>
+        <member name="T:TinyPraxis.UnboundVariableQuery">
+            <summary>
+            Finds all the children under all the entries found by the parent, and binds the keys of those children to variable
+            </summary>
+        </member>
+        <member name="F:TinyPraxis.UnboundVariableQuery.index">
+            <summary>
+            The position within parent's Current solution's Children list of our Current solution
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.UnboundVariableQuery.Reset">
+            <summary>
+            Restart query.
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.UnboundVariableQuery.TryNext">
+            <summary>
+            Try for another solution, asking parent for new solution if necessary.
+            </summary>
+            <returns>Success</returns>
+        </member>
+        <member name="T:TinyPraxis.BoundVariableQuery">
+            <summary>
+            Finds  the child (if any) under each solution found by the parent, that matches the value of a bound variable
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.BoundVariableQuery.Reset">
+            <summary>
+            Restarts query
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.BoundVariableQuery.TryNext">
+            <summary>
+            Attempts to find the next solution
+            </summary>
+            <returns>Success</returns>
+        </member>
+        <member name="T:TinyPraxis.ConstantQuery">
+            <summary>
+            Enumerates the child contains key (if any) of each solution of parent
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.ConstantQuery.#ctor(TinyPraxis.PrimitiveQuery,System.Object)">
+            <summary>
+            Enumerates the child contains key (if any) of each solution of parent
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.ConstantQuery.Reset">
+            <summary>
+            Restarts query
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.ConstantQuery.TryNext">
+            <summary>
+            Attempts to find the next solution
+            </summary>
+            <returns>Success</returns>
+        </member>
+        <member name="T:TinyPraxis.KnowledgeBaseEntry">
+            <summary>
+            A node in the trie representing a collection of exclusion logic assertions
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.KnowledgeBaseEntry.ToString">
+            <summary>
+            Unparses the entry into key+key+key format
+            </summary>
+            <returns>Name in key+key+key format</returns>
+        </member>
+        <member name="F:TinyPraxis.KnowledgeBaseEntry.Key">
+            <summary>
+            The value associated with this node.
+            </summary>
+        </member>
+        <member name="F:TinyPraxis.KnowledgeBaseEntry.EmptyChildren">
+            <summary>
+            An empty list.  Cached so there need only be one lying around.
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.KnowledgeBaseEntry.StoreExclusive(TinyPraxis.Variable,System.Boolean)">
+            <summary>
+            Store an exclusive child inside this node.
+            </summary>
+            <param name="v">Bound variable holding the key for the child</param>
+            <param name="overwrite">If true, this will overwrite any existing child with a different value.</param>
+            <returns>The child node</returns>
+            <exception cref="T:TinyPraxis.KBExclusionException">If a non-exclusive child has already been written.</exception>
+        </member>
+        <member name="M:TinyPraxis.KnowledgeBaseEntry.StoreExclusive(System.Object,System.Boolean)">
+            <summary>
+            Store an exclusive child inside this node.
+            </summary>
+            <param name="key">Key for the child</param>
+            <param name="overwrite">If true, this will overwrite any existing child with a different value.</param>
+            <returns>The child node</returns>
+            <exception cref="T:TinyPraxis.KBExclusionException">If a non-exclusive child has already been written.</exception>
+        </member>
+        <member name="M:TinyPraxis.KnowledgeBaseEntry.StoreNonExclusive(TinyPraxis.Variable)">
+            <summary>
+            Store a non-exclusive child inside this node.
+            </summary>
+            <param name="v">Bound variable holding the key for the child</param>
+            <returns>The child node</returns>
+            <exception cref="T:TinyPraxis.KBExclusionException">If an exclusive child has already been written.</exception>
+        </member>
+        <member name="M:TinyPraxis.KnowledgeBaseEntry.StoreNonExclusive(System.Object)">
+            <summary>
+            Store a non-exclusive child inside this node.
+            </summary>
+            <param name="key">Key for the new child</param>
+            <returns>The child node</returns>
+            <exception cref="T:TinyPraxis.KBExclusionException">If an exclusive child has already been written.</exception>
+        </member>
+        <member name="M:TinyPraxis.KnowledgeBaseEntry.op_Addition(TinyPraxis.KnowledgeBaseEntry,TinyPraxis.Variable)">
+            <summary>
+            Write the specified key as a non-exclusive child.  If key is already a child, this has no effect
+            </summary>
+            <param name="e">KB node</param>
+            <param name="v">Bound variable holding the key for the child</param>
+            <returns>The child node containing key.</returns>
+            <exception cref="T:TinyPraxis.KBExclusionException">If an exclusive child has already been written in this node.</exception>
+        </member>
+        <member name="M:TinyPraxis.KnowledgeBaseEntry.op_Addition(TinyPraxis.KnowledgeBaseEntry,System.Object)">
+            <summary>
+            Write the specified key as a non-exclusive child.  If key is already a child, this has no effect
+            </summary>
+            <param name="e">KB node</param>
+            <param name="key">Key to write</param>
+            <returns>The child node containing key.</returns>
+            <exception cref="T:TinyPraxis.KBExclusionException">If an exclusive child has already been written in this node.</exception>
+        </member>
+        <member name="M:TinyPraxis.KnowledgeBaseEntry.op_Subtraction(TinyPraxis.KnowledgeBaseEntry,TinyPraxis.Variable)">
+            <summary>
+            Write the specified key as an exclusive child.
+            If key is already the child, this has no effect.
+            Otherwise, the current child is replaced with this key.
+            </summary>
+            <param name="e">KB node</param>
+            <param name="v">Bound variable holding the key for the child</param>
+            <returns>The child node containing key.</returns>
+            <exception cref="T:TinyPraxis.KBExclusionException">If a non-exclusive child has already been written in this node.</exception>
+        </member>
+        <member name="M:TinyPraxis.KnowledgeBaseEntry.op_Subtraction(TinyPraxis.KnowledgeBaseEntry,System.Object)">
+            <summary>
+            Write the specified key as an exclusive child.
+            If key is already the child, this has no effect.
+            Otherwise, the current child is replaced with this key.
+            </summary>
+            <param name="e">KB node</param>
+            <param name="key">Key to write</param>
+            <returns>The child node containing key.</returns>
+            <exception cref="T:TinyPraxis.KBExclusionException">If a non-exclusive child has already been written in this node.</exception>
+        </member>
+        <member name="P:TinyPraxis.KnowledgeBaseEntry.Name">
+            <summary>
+            Unparses the entry into key+key+key format
+            </summary>
+        </member>
+        <member name="P:TinyPraxis.KnowledgeBaseEntry.Parent">
+            <summary>
+            Parent node of this KB node.  Used primarily for printing.
+            </summary>
+        </member>
+        <member name="P:TinyPraxis.KnowledgeBaseEntry.Children">
+            <summary>
+            List of the child nodes of this node.
+            </summary>
+        </member>
+        <member name="T:TinyPraxis.NoSolutionException">
+            <summary>
+            Thrown when a query has no solution.
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.NoSolutionException.#ctor(System.String)">
+            <summary>
+            Thrown when a query has no solution
+            </summary>
+        </member>
+        <member name="T:TinyPraxis.Rule">
+            <summary>
+            A forward-chaining inference rule
+            </summary>
+        </member>
+        <member name="F:TinyPraxis.Rule.Name">
+            <summary>
+            Name of the rule for debugging purpose
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.Rule.#ctor(System.String,TinyPraxis.KBQuery,System.Action)">
+            <summary>
+            A rule that runs action for each match to the preconditions
+            </summary>
+            <param name="name">Name for debugging purposes</param>
+            <param name="preconditions">Antecedents for the rule</param>
+            <param name="action">Code to run when the rule matches the database</param>
+        </member>
+        <member name="M:TinyPraxis.Rule.Run">
+            <summary>
+            Matches preconditions to database and runs action for each match
+            </summary>
+        </member>
+        <member name="T:TinyPraxis.RuleSet">
+            <summary>
+            A collection of rules to run as a group
+            </summary>
+        </member>
+        <member name="F:TinyPraxis.RuleSet.Name">
+            <summary>
+            Name for debugging purposes
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.RuleSet.#ctor(System.String,TinyPraxis.Rule[])">
+            <summary>
+            Creates a new collection of rules
+            </summary>
+            <param name="name">Name for debugging purposes</param>
+            <param name="rules">Rules to include</param>
+        </member>
+        <member name="M:TinyPraxis.RuleSet.Run">
+            <summary>
+            Runs all the rules in order
+            </summary>
+        </member>
+        <member name="T:TinyPraxis.UnboundVariableException">
+            <summary>
+            Thrown when attempting to obtain the value of an unbound variable.
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.UnboundVariableException.#ctor(System.String)">
+            <summary>
+            Thrown when attempting to obtain the value of an unbound variable.
+            </summary>
+        </member>
+        <member name="T:TinyPraxis.Variable">
+            <summary>
+            Variables used within KBQueries.
+            </summary>
+        </member>
+        <member name="M:TinyPraxis.Variable.#ctor(System.String)">
+            <summary>
+            Creates a variable for use in a KBQuery.
+            </summary>
+            <param name="name">Name of variable (for debugging purposes)</param>
+        </member>
+        <member name="M:TinyPraxis.Variable.op_Inequality(TinyPraxis.Variable,TinyPraxis.Variable)">
+            <summary>
+            True if the two variables are bound to different values.
+            IMPORTANT:
+            - Cannot be used on unbound variables
+            - Doesn't test if they're the same variable, just if they
+              have the same value.
+            </summary>
+            <param name="v1">First variable</param>
+            <param name="v2">Second variable</param>
+            <returns>True if they have different values</returns>
+            <exception cref="T:System.InvalidOperationException">If either variable is unbound</exception>
+        </member>
+        <member name="M:TinyPraxis.Variable.op_Equality(TinyPraxis.Variable,TinyPraxis.Variable)">
+            <summary>
+            True if the two variables are bound to the same value.
+            IMPORTANT:
+            - Cannot be used on unbound variables
+            - Doesn't test if they're the same variable, just if they
+              have the same value.
+            </summary>
+            <param name="v1">First variable</param>
+            <param name="v2">Second variable</param>
+            <returns>True if they have the same value</returns>
+            <exception cref="T:System.InvalidOperationException">If either variable is unbound</exception>
+        </member>
+        <member name="P:TinyPraxis.Variable.Value">
+            <summary>
+            Current value of the variable
+            </summary>
+        </member>
+        <member name="P:TinyPraxis.Variable.Used">
+            <summary>
+            True if the variable has already been used once in the query.
+            If false, this is the first reference to the variable, and so this
+            reference should bind it.  If true, it's already bound and so the
+            reference should match it.
+            </summary>
+        </member>
+        <member name="P:TinyPraxis.Variable.Name">
+            <summary>
+            Name (for debugging purposes)
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,15 @@
+\\psf\Home\Documents\Visual Studio 2012\Projects\ExclusionLogic\Tests\bin\Debug\Tests.dll
+\\psf\Home\Documents\Visual Studio 2012\Projects\ExclusionLogic\Tests\bin\Debug\Tests.pdb
+\\psf\Home\Documents\Visual Studio 2012\Projects\ExclusionLogic\Tests\bin\Debug\TinyPraxis.dll
+\\psf\Home\Documents\Visual Studio 2012\Projects\ExclusionLogic\Tests\bin\Debug\TinyPraxis.pdb
+\\psf\Home\Documents\Visual Studio 2012\Projects\ExclusionLogic\Tests\obj\Debug\Tests.csprojResolveAssemblyReference.cache
+\\psf\Home\Documents\Visual Studio 2012\Projects\ExclusionLogic\Tests\obj\Debug\Tests.dll
+\\psf\Home\Documents\Visual Studio 2012\Projects\ExclusionLogic\Tests\obj\Debug\Tests.pdb
+\\psf\Home\Documents\Visual Studio 2012\Projects\TinyPraxis\Tests\obj\Debug\Tests.csprojResolveAssemblyReference.cache
+\\psf\Home\Documents\Visual Studio 2012\Projects\TinyPraxis\Tests\obj\Debug\Tests.dll
+\\psf\Home\Documents\Visual Studio 2012\Projects\TinyPraxis\Tests\obj\Debug\Tests.pdb
+\\psf\Home\Documents\Visual Studio 2012\Projects\TinyPraxis\Tests\bin\Debug\Tests.dll
+\\psf\Home\Documents\Visual Studio 2012\Projects\TinyPraxis\Tests\bin\Debug\Tests.pdb
+\\psf\Home\Documents\Visual Studio 2012\Projects\TinyPraxis\Tests\bin\Debug\TinyPraxis.dll
+\\psf\Home\Documents\Visual Studio 2012\Projects\TinyPraxis\Tests\bin\Debug\TinyPraxis.pdb
+\\psf\Home\Documents\Visual Studio 2012\Projects\TinyPraxis\Tests\bin\Debug\TinyPraxis.xml
