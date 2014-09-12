@@ -34,7 +34,6 @@ namespace TinyPraxis
         static KB()
         {
             Clear();
- 
         }
 
         /// <summary>
@@ -59,10 +58,7 @@ namespace TinyPraxis
         /// </summary>
         public static PrimitiveQuery Query
         {
-            get
-            {
-                return new SingletonQuery(root);
-            }
+            get { return new SingletonQuery(root); }
         }
 
         /// <summary>
